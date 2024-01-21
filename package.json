@@ -1,7 +1,11 @@
 {
   "name": "games",
-  "description": "My favorite classic video-games",
+  "description": "About  A collection of classic games of my preference and of many others.",
   "author": "Osmel Smith <osmelsr97@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/osmelsr97/classic-games-collection"
+  },
   "private": true,
   "version": "0.0.0",
   "type": "module",
