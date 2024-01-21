@@ -1,5 +1,7 @@
 ### 🎮 Classic - Games 🎮
 
+[![Pipeline Deploy](https://github.com/osmelsr97/classic-games-collection/actions/workflows/Pipeline.yml/badge.svg?branch=main)](https://github.com/osmelsr97/classic-games-collection/actions/workflows/Pipeline.yml)
+
 ## 📸 Preview:
 
 ![screenshot example](/screenshot.png)
