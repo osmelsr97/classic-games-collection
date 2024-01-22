@@ -7,8 +7,7 @@ export default {
         sans: ["Nunito", "sans"],
       },
       backgroundImage: {
-        default: "url('./src/assets/img/background-game.jpg')",
-        snake: "url('./src/assets/img/snake.jpg')",
+        default: "url('/assets/img/background-game.jpg')",
       },
     },
   },
