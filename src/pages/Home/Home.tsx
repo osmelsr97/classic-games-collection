@@ -3,7 +3,7 @@ import { GAMES } from "@/data/games";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center gap-6 mt-20">
+    <section className="flex flex-col items-center gap-6">
       <header>
         <h1 className="text-white text-6xl mb-10 text-center">Classic Games</h1>
       </header>

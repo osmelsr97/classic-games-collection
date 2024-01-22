@@ -22,7 +22,7 @@ export const GAMES: Game[] = [
       enabled: true,
     },
     description: "The classic tic tac toe game",
-    enabled: false,
+    enabled: true,
     image: "tic-tac-toe.jpg",
     name: "Tic Tac Toe",
     path: "/tic-tac-toe",
