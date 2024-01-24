@@ -54,7 +54,7 @@ export default function Snake() {
       </header>
 
       {/* TODO Change border and background colors */}
-      <div className="bg-slate-400 border-8 border-red-600 rounded relative">
+      <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded relative shadow-2xl">
         {shouldShowBackDrop && (
           <div className="bg-gray-500 absolute inset-0 opacity-50 flex items-center justify-center w-100 h-100">
             {gameState === GameStatus.PAUSED && (

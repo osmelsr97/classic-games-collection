@@ -10,7 +10,6 @@ import { IElement } from "@/types/draw";
 import {
   DefaultSnakeConfig,
   InitialFoodConfig,
-  InitialSnakeConfig,
   SnakeCanvasDimensions,
   SnakeGridSize,
 } from "../utils/config";
@@ -78,29 +77,30 @@ export default function useSnakeEngine(canvas: RefObject<HTMLCanvasElement>) {
   // Detect if snake is eating food
   const isEating = () => {
     const snakeHead = snakeState[snakeState.length - 1];
+    const food = foodState[0];
     switch (direction) {
       case Direction.Up: {
         return (
-          snakeHead.positions.x === foodState[0].positions.x &&
-          snakeHead.positions.y - SnakeGridSize === foodState[0].positions.y
+          snakeHead.positions.x === food.positions.x &&
+          snakeHead.positions.y === food.positions.y - SnakeGridSize
         );
       }
       case Direction.Down: {
         return (
-          snakeHead.positions.x === foodState[0].positions.x &&
-          snakeHead.positions.y + SnakeGridSize === foodState[0].positions.y
+          snakeHead.positions.x === food.positions.x &&
+          snakeHead.positions.y === food.positions.y - SnakeGridSize
         );
       }
       case Direction.Left: {
         return (
-          snakeHead.positions.x - SnakeGridSize === foodState[0].positions.x &&
-          snakeHead.positions.y === foodState[0].positions.y
+          snakeHead.positions.x === food.positions.x &&
+          snakeHead.positions.y === food.positions.y - SnakeGridSize
         );
       }
       case Direction.Right: {
         return (
-          snakeHead.positions.x + SnakeGridSize === foodState[0].positions.x &&
-          snakeHead.positions.y === foodState[0].positions.y
+          snakeHead.positions.x === food.positions.x &&
+          snakeHead.positions.y === food.positions.y - SnakeGridSize
         );
       }
       default:
@@ -161,10 +161,40 @@ export default function useSnakeEngine(canvas: RefObject<HTMLCanvasElement>) {
   // Logic with level up
   const levelUp = () => {
     if (!isEating()) return;
-    setSnakeState((prevSnakeState) => [
-      ...prevSnakeState,
-      { ...InitialSnakeConfig, positions: { ...foodState[0].positions } },
-    ]);
+    setSnakeState((prevSnakeState) => {
+      const currentHead = prevSnakeState[prevSnakeState.length - 1];
+      let newHeadPositionX = currentHead.positions.x;
+      let newHeadPositionY = currentHead.positions.y;
+
+      switch (direction) {
+        case Direction.Up: {
+          newHeadPositionY = newHeadPositionY - SnakeGridSize;
+          break;
+        }
+        case Direction.Down: {
+          newHeadPositionY = newHeadPositionY + SnakeGridSize;
+          break;
+        }
+        case Direction.Left: {
+          newHeadPositionX = newHeadPositionX - SnakeGridSize;
+          break;
+        }
+        case Direction.Right: {
+          newHeadPositionX = newHeadPositionX + SnakeGridSize;
+          break;
+        }
+      }
+
+      const newHead = {
+        ...currentHead,
+        positions: {
+          x: newHeadPositionX,
+          y: newHeadPositionY,
+        },
+      };
+
+      return [...prevSnakeState, newHead];
+    });
     setScore((prevScore) => prevScore + 20);
     setDelay((prevDelay) => Math.max((prevDelay ?? 130) - 3, 60));
   };
@@ -176,8 +206,16 @@ export default function useSnakeEngine(canvas: RefObject<HTMLCanvasElement>) {
       {
         ...InitialFoodConfig,
         positions: {
-          x: randomPositionOnGrid(SnakeGridSize, SnakeCanvasDimensions.width),
-          y: randomPositionOnGrid(SnakeGridSize, SnakeCanvasDimensions.height),
+          x: randomPositionOnGrid(
+            0,
+            SnakeCanvasDimensions.width - SnakeGridSize,
+            SnakeGridSize
+          ),
+          y: randomPositionOnGrid(
+            SnakeGridSize,
+            SnakeCanvasDimensions.height,
+            SnakeGridSize
+          ),
         },
       },
     ]);

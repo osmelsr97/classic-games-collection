@@ -23,5 +23,5 @@ export const InitialPosition = {
   y: 0,
 };
 
-export const randomPositionOnGrid = (gridSize: number, threshold: number) =>
-  Math.floor(Math.random() * (threshold / gridSize)) * gridSize;
+export const randomPositionOnGrid = (min: number, max: number, size: number) =>
+  Math.floor(Math.random() * ((max - min) / size)) * size + min;
